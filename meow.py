@@ -4,6 +4,7 @@ from models import World
 SCREEN_WIDTH = 700
 SCREEN_HEIGHT = 700
 
+
 class ModelSprite(arcade.Sprite):
     def __init__(self, *args, **kwargs):
         self.model = kwargs.pop('model', None)
@@ -21,10 +22,11 @@ class ModelSprite(arcade.Sprite):
 class MEOWWindow(arcade.Window):
     def __init__(self, width, height):
         super().__init__(width, height)
-        self.world = World(SCREEN_WIDTH, SCREEN_HEIGHT)
+        self.world = World(SCREEN_WIDTH, SCREEN_HEIGHT,"images/background-living.jpg")
         self.meow_sprite = ModelSprite('images/meow.png',
                                                 model=self.world.meow) 
-        self.meow_sprite.set_position(650,350)
+        #self.meow_sprite.set_position(650,350)
+       
         
     def update(self, delta):
         self.world.update(delta)
@@ -34,6 +36,9 @@ class MEOWWindow(arcade.Window):
         arcade.draw_texture_rectangle(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2,
                                               SCREEN_WIDTH, SCREEN_HEIGHT, arcade.load_texture(self.world.background)) 
         self.meow_sprite.draw()
+        arcade.draw_text(str(self.world.coin),
+                                 self.width - 30, self.height - 30,
+                                 arcade.color.WHITE, 20)        
         
  
 def main():
