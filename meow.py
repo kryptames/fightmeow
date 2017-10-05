@@ -23,23 +23,28 @@ class MEOWWindow(arcade.Window):
     def __init__(self, width, height):
         super().__init__(width, height)
         self.world = World(SCREEN_WIDTH, SCREEN_HEIGHT,"images/background-living.jpg")
-        self.meow_sprite = ModelSprite('images/meow.png',
-                                                model=self.world.meow) 
-        #self.meow_sprite.set_position(650,350)
-       
+        self.meow_sprite = ModelSprite('images/meow.png', model=self.world.meow) 
+        self.coin_sprite = ModelSprite('images/coin.png', model=self.world.coin)
+        self.food_sprite = ModelSprite('images/Block.png', model=self.world.block_food)
         
+
     def update(self, delta):
         self.world.update(delta)
         
     def on_draw(self):
         arcade.start_render()
+        # draw bg
         arcade.draw_texture_rectangle(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2,
                                               SCREEN_WIDTH, SCREEN_HEIGHT, arcade.load_texture(self.world.background)) 
+        # draw cat
         self.meow_sprite.draw()
-        arcade.draw_text(str(self.world.coin),
-                                 self.width - 30, self.height - 30,
-                                 arcade.color.WHITE, 20)        
-        
+        # draw block food
+        self.food_sprite.draw()
+        # draw coin
+        self.coin_sprite.draw()
+        arcade.draw_text(str(self.world.coin.coin),
+                                self.width - 30, self.height - 30,
+                                arcade.color.YELLOW, 20)       
  
 def main():
     window = MEOWWindow(SCREEN_WIDTH, SCREEN_HEIGHT)
