@@ -1,4 +1,4 @@
-import arcade
+import arcade,random
 class Meow:
     def __init__(self):
         self.hungry = 100
@@ -32,7 +32,7 @@ class Coin:
 
 class World:
     def __init__(self, width, height,img):
-        START_COIN = 10
+        self.position = [(400,325),(600,325),(565,100),(360,200)]
         self.width = width
         self.height = height
         self.background = img
@@ -52,8 +52,11 @@ class World:
         pass
     def on_key_press(self, key, key_modifiers):
         if key == arcade.key.SPACE:
-            self.meow_list.append(Meow())
-            meow_sprite = arcade.Sprite('images/meow.png')
-            meow_sprite.center_x = 600
-            meow_sprite.center_y = 325
-            self.meow_sprite_list.append(meow_sprite)
+            if self.coin.coin > 0:
+                self.meow_list.append(Meow())
+                meow_sprite = arcade.Sprite('images/meow.png')
+                position = self.position[random.randint(0,3)]
+                meow_sprite.set_position(position[0],position[1])
+                self.meow_sprite_list.append(meow_sprite)
+                self.coin.coin -= 5
+
