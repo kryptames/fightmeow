@@ -58,5 +58,5 @@ class World:
                 position = self.position[random.randint(0,3)]
                 meow_sprite.set_position(position[0],position[1])
                 self.meow_sprite_list.append(meow_sprite)
-                self.coin.coin -= 5
+                self.coin.coin -= 1
 
