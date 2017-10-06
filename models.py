@@ -2,8 +2,13 @@ import arcade,random
 class Meow:
     def __init__(self):
         self.hungry = 100
+        self.time = 0
     def update(self, delta):
-        pass
+        self.time+=delta
+        if self.time < 5:
+            return
+        self.time = 0
+        self.hungry-=10
             
     def eat(self,food):
         if self.hungry<100:
@@ -48,8 +53,14 @@ class World:
         self.meow_sprite_list.append(meow_sprite)
  
     def update(self, delta):
-        # self.meow.update(delta)
-        pass
+        for i in range(len(self.meow_list)):
+            self.meow_list[i].update(delta)
+            if self.meow_list[i].hungry<=0:
+                del self.meow_list[i]
+                self.meow_sprite_list[i].kill()
+                break
+
+
     def on_key_press(self, key, key_modifiers):
         if key == arcade.key.SPACE:
             if self.coin.coin > 0:

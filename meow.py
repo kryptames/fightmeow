@@ -48,7 +48,13 @@ class MEOWWindow(arcade.Window):
         self.coin_sprite.draw()
         arcade.draw_text(str(self.world.coin.coin),
                                 self.width - 30, self.height - 30,
-                                arcade.color.YELLOW, 20)       
+                                arcade.color.YELLOW, 20)    
+        arcade.draw_text(str(self.world.meow_list[0].hungry),
+                                self.width - 50, self.height - 50,
+                                arcade.color.YELLOW, 20)
+        arcade.draw_text(str(self.world.meow_list[0].time),
+                                self.width - 110, self.height - 110,
+                                arcade.color.YELLOW, 20)    
     def on_key_press(self, key, key_modifiers):
         self.world.on_key_press(key, key_modifiers)
 def main():
