@@ -22,15 +22,12 @@ class ModelSprite(arcade.Sprite):
 class MEOWWindow(arcade.Window):
     def __init__(self, width, height):
         super().__init__(width, height)
+
         # set world bg
         self.world = World(SCREEN_WIDTH, SCREEN_HEIGHT,"images/background-living.jpg")
-
-        # self.meow_sprite = ModelSprite('images/meow.png', model=self.world.meow)
         self.coin_sprite = ModelSprite('images/coin.png', model=self.world.coin)
-        self.food_sprite = ModelSprite('images/Block.png', model=self.world.block_food)
-
-        # add init cat
-        
+        self.block_food_sprite = ModelSprite('images/Block.png', model=self.world.block_food)
+        self.food_sprite = ModelSprite('images/food.jpg', model=self.world.food)
 
     def update(self, delta):
         self.world.update(delta)
@@ -43,20 +40,39 @@ class MEOWWindow(arcade.Window):
         # draw cat
         self.world.meow_sprite_list.draw()
         # draw block food
+        self.block_food_sprite.draw()
         self.food_sprite.draw()
         # draw coin
         self.coin_sprite.draw()
         arcade.draw_text(str(self.world.coin.coin),
                                 self.width - 30, self.height - 30,
                                 arcade.color.YELLOW, 20)    
+
         arcade.draw_text(str(self.world.meow_list[0].hungry),
                                 self.width - 50, self.height - 50,
                                 arcade.color.YELLOW, 20)
         arcade.draw_text(str(self.world.meow_list[0].time),
                                 self.width - 110, self.height - 110,
-                                arcade.color.YELLOW, 20)    
+                                arcade.color.YELLOW, 20)   
+        arcade.draw_text(str(self.world.food.food),
+                                self.width - 150, self.height - 150,
+                                arcade.color.YELLOW, 20)  
+        if len(self.world.meow_list) > 1:
+            arcade.draw_text(str(self.world.meow_list[1].hungry),
+                                    self.width - 50, self.height - 70,
+                                    arcade.color.GREEN, 20)
+            arcade.draw_text(str(self.world.meow_list[1].time),
+                                    self.width - 110, self.height - 130,
+                                    arcade.color.GREEN, 20)   
+
+        #  draw food 
+        self.food_sprite.draw()
+
     def on_key_press(self, key, key_modifiers):
         self.world.on_key_press(key, key_modifiers)
+    def on_mouse_press(self, x, y, button, modifiers):
+        self.world.on_mouse_press(x, y, button, modifiers)
+
 def main():
     window = MEOWWindow(SCREEN_WIDTH, SCREEN_HEIGHT)
     arcade.set_window(window)
