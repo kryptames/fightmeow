@@ -6,16 +6,18 @@ class Meow:
 
     def update(self, delta):
         self.time+=delta
-        if self.time < 5:
+        if self.time < 10:
             return
         self.time = 0
         self.hungry-=10
-            
-            
+
     def eat(self,food):
-        if self.hungry<100:
+        if self.hungry<100 and self.time == 0:
+            print("hungry before eat",self.hungry)
             self.hungry+=food.get
             food.eaten()
+            print("food",food.food)
+            print("hungry after eat",self.hungry)
 
 class BlockFood:
     def __init__(self):
@@ -27,9 +29,10 @@ class Food:
         self.x = 100
         self.y = 100
         self.food = 100
-        self.get = 5
+        self.get = 10
     def eaten(self):
         self.food -= self.get
+        
     def buy(self):
         self.food += 30
 
@@ -37,16 +40,17 @@ class Coin:
     def __init__(self):
         self.x = 650
         self.y = 675
-        START_COIN = 10
+        START_COIN = 50
         self.coin = START_COIN
     def buy_meow(self):
-        self.coin -= 20
+        self.coin -= 10
     def buy_food(self):
-        self.coin -= 5
+        self.coin -= 2
 
 class World:
     def __init__(self, width, height,img):
-        self.position = [(400,325),(600,325),(565,100),(360,200)]
+        self.position = [(600,325),(565,100),(360,200)]
+        self.used_position =[(400,325)]
         self.width = width
         self.height = height
         self.background = img
@@ -67,7 +71,6 @@ class World:
         self.meow_sprite_list.append(meow_sprite)
  
     def update(self, delta):
-        
         for i in range(len(self.meow_list)):
             self.meow_list[i].update(delta)
             # eat food 
