@@ -3,6 +3,8 @@ class Meow:
     def __init__(self):
         self.hungry = 100
         self.time = 0
+        self.level = 1
+        self.damage = random.randint(0,30)
 
     def update(self, delta):
         self.time+=delta
@@ -78,20 +80,23 @@ class World:
                 self.meow_list[i].eat(self.food)
             # starving
             if self.meow_list[i].hungry<=0:
+                self.position.append((self.meow_sprite_list[i].center_x,self.meow_sprite_list[i].center_y))
                 del self.meow_list[i]
                 self.meow_sprite_list[i].kill()
                 break
 
     def on_key_press(self, key, key_modifiers):
         if key == arcade.key.SPACE:
-            if self.coin.coin > 0:
+            if self.coin.coin > 0 and len(self.position) > 0:
                 # add meow
                 self.meow_list.append(Meow())
                 meow_sprite = arcade.Sprite('images/meow.png')
-                position = self.position[random.randint(0,3)]
+                position = self.position.pop(random.randint(0,len(self.position)-1))
                 meow_sprite.set_position(position[0],position[1])
+                self.used_position.append((position[0],position[1]))
                 self.meow_sprite_list.append(meow_sprite)
                 self.coin.buy_meow()
+                print(position)
 
     def on_mouse_press(self, x, y, button, modifiers):
         if button == arcade.MOUSE_BUTTON_LEFT and (x > 25 and x < 75 ) and (y > 625 and y < 675):
