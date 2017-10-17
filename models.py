@@ -5,6 +5,7 @@ class Meow:
         self.time = 0
         self.level = 1
         self.damage = random.randint(0,30)
+        self.exp = 0
 
     def update(self, delta):
         self.time+=delta
@@ -15,11 +16,13 @@ class Meow:
 
     def eat(self,food):
         if self.hungry<100 and self.time == 0:
-            print("hungry before eat",self.hungry)
             self.hungry+=food.get
             food.eaten()
-            print("food",food.food)
-            print("hungry after eat",self.hungry)
+
+class Enemy(arcade.Sprite):
+    def __init__(self,filename, SCALE):
+        super().__init__(filename, SCALE)
+        self.damage = random.randint(0,30)
 
 class BlockFood:
     def __init__(self):
@@ -103,4 +106,10 @@ class World:
             self.food.buy()
             self.coin.buy_food()
 
-            
+class Choose:
+    def __init__(self,world,img):
+        self.world = world
+        self.background = img
+    def update(self):
+        pass
+    
