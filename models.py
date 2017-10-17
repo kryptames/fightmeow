@@ -33,13 +33,13 @@ class Food:
     def __init__(self):
         self.x = 100
         self.y = 100
-        self.food = 100
+        self.status = 100
         self.get = 10
     def eaten(self):
-        self.food -= self.get
+        self.status -= self.get
         
     def buy(self):
-        self.food += 30
+        self.status += 30
 
 class Coin:
     def __init__(self):
@@ -79,7 +79,7 @@ class World:
         for i in range(len(self.meow_list)):
             self.meow_list[i].update(delta)
             # eat food 
-            if self.food.food > 0:
+            if self.food.status > 0:
                 self.meow_list[i].eat(self.food)
             # starving
             if self.meow_list[i].hungry<=0:

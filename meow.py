@@ -18,7 +18,7 @@ class ModelSprite(arcade.Sprite):
         self.sync_with_model()
         super().draw()
 
-class MEOWWindow(arcade.Window):
+class MeowWindow(arcade.Window):
     def __init__(self, width, height):
         super().__init__(width, height)
 
@@ -32,7 +32,8 @@ class MEOWWindow(arcade.Window):
         self.choose_status = False
 
     def update(self, delta):
-        self.world.update(delta)
+        if self.choose_status == False:
+            self.world.update(delta)
         
     def on_draw(self):
         arcade.start_render()
@@ -59,7 +60,7 @@ class MEOWWindow(arcade.Window):
             arcade.draw_text(str(self.world.meow_list[0].time),
                                     self.width - 110, self.height - 110,
                                     arcade.color.YELLOW, 20)   
-            arcade.draw_text(str(self.world.food.food),
+            arcade.draw_text(str(self.world.food.status),
                                     self.width - 150, self.height - 150,
                                     arcade.color.YELLOW, 20)  
             if len(self.world.meow_list) > 1:
@@ -94,7 +95,7 @@ class MEOWWindow(arcade.Window):
             self.choose_status = False
 
 def main():
-    window = MEOWWindow(SCREEN_WIDTH, SCREEN_HEIGHT)
+    window = MeowWindow(SCREEN_WIDTH, SCREEN_HEIGHT)
     arcade.set_window(window)
     arcade.run()
  
