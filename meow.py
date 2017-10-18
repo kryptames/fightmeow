@@ -77,6 +77,9 @@ class MeowWindow(arcade.Window):
                                         arcade.color.BLUE_YONDER, 20)
             #  draw food 
             self.food_sprite.draw()
+            arcade.draw_text('Left: {0}'.format(str(self.world.food.status)),
+                                        self.food_sprite.center_x - 50, self.food_sprite.center_y + 50,
+                                        arcade.color.BRICK_RED, 20)
 
         elif self.choose_status == True:
             arcade.draw_texture_rectangle(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2,
