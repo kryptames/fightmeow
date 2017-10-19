@@ -29,16 +29,27 @@ class MeowWindow(arcade.Window):
         self.food_sprite = ModelSprite('images/food.jpg', model=self.world.food)
 
         self.choose = Choose(self.world,"images/background-working.jpg")
-        self.choose_status = False
+        self.fight = Fight(self.world,"images/background-working.jpg")
+        self.training = Training(self.world)
+        
 
     def update(self, delta):
-        if self.choose_status == False:
+        if self.world.choose_status == False:
             self.world.update(delta)
+        else:
+            if self.world.fight_status:
+                self.fight.update(delta)
+                if self.fight.count:
+                    self.fight.count = 0
+                    self.world.fight_status = False
+                    self.world.choose_status = False
+            elif self.world.training_status:
+                self.training.update(delta)
         
     def on_draw(self):
         arcade.start_render()
         
-        if self.choose_status == False:
+        if self.world.choose_status == False and self.world.fight_status == False:
 
             # draw bg
             arcade.draw_texture_rectangle(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2,
@@ -50,7 +61,7 @@ class MeowWindow(arcade.Window):
             self.food_sprite.draw()
             # draw coin
             self.coin_sprite.draw()
-            arcade.draw_text(str(self.world.coin.coin),
+            arcade.draw_text(str(self.world.coin.status),
                                     self.width - 30, self.height - 30,
                                     arcade.color.CITRINE, 20)    
             #############################################################################################
@@ -80,22 +91,31 @@ class MeowWindow(arcade.Window):
             arcade.draw_text('Left: {0}'.format(str(self.world.food.status)),
                                         self.food_sprite.center_x - 50, self.food_sprite.center_y + 50,
                                         arcade.color.BRICK_RED, 20)
-
-        elif self.choose_status == True:
-            arcade.draw_texture_rectangle(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2,
-                                              SCREEN_WIDTH, SCREEN_HEIGHT, arcade.load_texture(self.choose.background))
-            
+        elif self.world.choose_status:
+            if self.world.choose_press:
+                arcade.draw_texture_rectangle(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2,
+                                        SCREEN_WIDTH, SCREEN_HEIGHT, arcade.load_texture(self.choose.background))
+            elif self.world.fight_status:
+                arcade.set_background_color(arcade.color.BLACK)
+                arcade.draw_text('Time: {0}, count {1}'.format(str(self.fight.time),str(self.fight.count)),
+                                        SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2,
+                                        arcade.color.BRICK_RED, 20)
+            elif self.world.training_status:
+                arcade.set_background_color(arcade.color.GRANNY_SMITH_APPLE)
+                arcade.draw_text('Time: {0}'.format(str(self.training.time)),
+                                        SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2,
+                                        arcade.color.BRICK_RED, 20)
 
     def on_key_press(self, key, key_modifiers):
         self.world.on_key_press(key, key_modifiers)
 
     def on_mouse_press(self, x, y, button, modifiers):
-        self.world.on_mouse_press(x, y, button, modifiers)
-        # center block 650,30
-        if button == arcade.MOUSE_BUTTON_LEFT and (x > 625 and x < 675 ) and (y > 5 and y < 55) and (self.choose_status == False):
-            self.choose_status = True
-        elif button == arcade.MOUSE_BUTTON_LEFT and (x > 625 and x < 675 ) and (y > 5 and y < 55) and (self.choose_status == True):
-            self.choose_status = False
+        if not self.world.choose_status:
+            self.world.on_mouse_press(x, y, button, modifiers)
+        # center block is 650,30
+        else:
+            self.choose.on_mouse_press(x, y, button, modifiers)
+        
 
 def main():
     window = MeowWindow(SCREEN_WIDTH, SCREEN_HEIGHT)
