@@ -123,7 +123,7 @@ class World:
             self.choose = "FIGHT"
             print(self.choose)
             self.choose_press = True
-        if button == arcade.MOUSE_BUTTON_LEFT and (x > 5 and x < 55 ) and (y > 5 and y < 55):
+        if button == arcade.MOUSE_BUTTON_LEFT and (x > 5 and x < 55 ) and (y > 5 and y < 55) and self.training_status == False:
             self.choose_status = True
             self.choose = "TRAIN"
             print(self.choose)
@@ -152,11 +152,11 @@ class Training:
         self.time = 0
 
     def update(self, delta):
+        self.world.choose_status = False
         self.time+=delta
         if self.time < 20:
             return
         self.world.training_status = False
-        self.world.choose_status = False
 
     def exp_increase(self,meow):
         self.world.exp += 20

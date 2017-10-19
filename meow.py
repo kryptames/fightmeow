@@ -43,12 +43,12 @@ class MeowWindow(arcade.Window):
                     self.fight.count = 0
                     self.world.fight_status = False
                     self.world.choose_status = False
-            elif self.world.training_status:
-                self.training.update(delta)
+        if self.world.training_status:
+            self.training.update(delta)
         
     def on_draw(self):
         arcade.start_render()
-        
+
         if self.world.choose_status == False and self.world.fight_status == False:
 
             # draw bg
@@ -91,6 +91,10 @@ class MeowWindow(arcade.Window):
             arcade.draw_text('Left: {0}'.format(str(self.world.food.status)),
                                         self.food_sprite.center_x - 50, self.food_sprite.center_y + 50,
                                         arcade.color.BRICK_RED, 20)
+            if self.world.training_status:
+                arcade.draw_text('Time: {0}'.format(str(self.training.time)),
+                                        SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2,
+                                        arcade.color.BRICK_RED, 20)
         elif self.world.choose_status:
             if self.world.choose_press:
                 arcade.draw_texture_rectangle(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2,
@@ -100,11 +104,7 @@ class MeowWindow(arcade.Window):
                 arcade.draw_text('Time: {0}, count {1}'.format(str(self.fight.time),str(self.fight.count)),
                                         SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2,
                                         arcade.color.BRICK_RED, 20)
-            elif self.world.training_status:
-                arcade.set_background_color(arcade.color.GRANNY_SMITH_APPLE)
-                arcade.draw_text('Time: {0}'.format(str(self.training.time)),
-                                        SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2,
-                                        arcade.color.BRICK_RED, 20)
+            
 
     def on_key_press(self, key, key_modifiers):
         self.world.on_key_press(key, key_modifiers)
