@@ -48,8 +48,8 @@ class Food:
 
 class Coin:
     def __init__(self):
-        self.x = 650
-        self.y = 675
+        self.x = 640
+        self.y = 680
         START_COIN = 50
         self.status = START_COIN
     def buy_meow(self):
@@ -133,9 +133,10 @@ class Choose:
     def __init__(self,world,img):
         self.world = world
         self.background = img
-        
+        self.select = -1
     def update(self):
         pass
+        
     def on_mouse_press(self, x, y, button, modifiers):
         if button == arcade.MOUSE_BUTTON_LEFT and (x > 625 and x < 675 ) and (y > 5 and y < 55):
             self.world.choose_press = False
@@ -144,7 +145,8 @@ class Choose:
                 self.world.training_status = True
             if self.world.choose == "FIGHT":
                 self.world.fight_status = True
-        
+        # if button == arcade.MOUSE_BUTTON_LEFT and (x > 625 and x < 675 ) and (y > 5 and y < 55):
+            
 
 class Training:
     def __init__(self, world):
@@ -177,3 +179,8 @@ class Fight:
         self.time = 0
         self.count = 1
         print("fight count",self.count)
+
+    def fighting(self, meow_stamina, enemy_stamina):
+        if enemy_stamina < 0:
+            self.world.coin.status += 30
+        return

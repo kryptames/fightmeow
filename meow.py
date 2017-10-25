@@ -62,7 +62,7 @@ class MeowWindow(arcade.Window):
             # draw coin
             self.coin_sprite.draw()
             arcade.draw_text(str(self.world.coin.status),
-                                    self.width - 30, self.height - 30,
+                                    self.width - 40, self.height - 30,
                                     arcade.color.CITRINE, 20)    
             #############################################################################################
             arcade.draw_text(str(self.world.meow_list[0].hungry),
@@ -102,7 +102,7 @@ class MeowWindow(arcade.Window):
             elif self.world.fight_status:
                 arcade.set_background_color(arcade.color.BLACK)
                 arcade.draw_text('Time: {0}, count {1}'.format(str(self.fight.time),str(self.fight.count)),
-                                        SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2,
+                                        2, 2,
                                         arcade.color.BRICK_RED, 20)
             
 
