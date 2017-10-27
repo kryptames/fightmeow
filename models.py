@@ -76,7 +76,7 @@ class World:
 
         #  set arcade meow
         self.meow_sprite_list = arcade.SpriteList()
-        meow_sprite = arcade.Sprite('images/meow.png')
+        meow_sprite = arcade.Sprite('images/meow1.png')
         meow_sprite.center_x = 400
         meow_sprite.center_y = 325
         self.meow_sprite_list.append(meow_sprite)
@@ -106,7 +106,8 @@ class World:
             if self.coin.status > 0 and len(self.position) > 0:
                 # add meow
                 self.meow_list.append(Meow())
-                meow_sprite = arcade.Sprite('images/meow.png')
+                random_pic = random.randint(1,3)
+                meow_sprite = arcade.Sprite('images/meow{0}.png'.format(random_pic))
                 position = self.position.pop(random.randint(0,len(self.position)-1))
                 meow_sprite.set_position(position[0],position[1])
                 self.used_position.append((position[0],position[1]))
