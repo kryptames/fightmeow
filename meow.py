@@ -28,9 +28,9 @@ class MeowWindow(arcade.Window):
         self.block_food_sprite = ModelSprite('images/Block.png', model=self.world.block_food)
         self.food_sprite = ModelSprite('images/food.jpg', model=self.world.food)
 
-        self.choose = Choose(self.world,"images/background-working.jpg")
-        self.fight = Fight(self.world,"images/background-working.jpg")
-        self.training = Training(self.world)
+        self.choose = Choose(self.world,"images/choose.png")
+        self.fight = Fight(self.world,self.choose,"images/background-working.jpg")
+        self.training = Training(self.world, self.choose)
         
 
     def update(self, delta):
@@ -45,7 +45,7 @@ class MeowWindow(arcade.Window):
                     self.world.choose_status = False
         if self.world.training_status:
             self.training.update(delta)
-        
+
     def on_draw(self):
         arcade.start_render()
 
@@ -99,6 +99,9 @@ class MeowWindow(arcade.Window):
             if self.world.choose_press:
                 arcade.draw_texture_rectangle(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2,
                                         SCREEN_WIDTH, SCREEN_HEIGHT, arcade.load_texture(self.choose.background))
+                if self.choose.choosen_sprite.center_x != 100 and self.choose.choosen_sprite.center_y != 100:
+                    self.choose.choosen_sprite.draw()
+                
             elif self.world.fight_status:
                 arcade.set_background_color(arcade.color.BLACK)
                 arcade.draw_text('Time: {0}, count {1}'.format(str(self.fight.time),str(self.fight.count)),

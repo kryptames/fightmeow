@@ -8,12 +8,12 @@ class Meow:
         self.exp = 0
 
     def update(self, delta):
+        self.lvl_up()
         self.time+=delta
         if self.time < 10:
             return
         self.time = 0
         self.hungry-=10
-        self.lvl_up()
 
     def eat(self,food):
         if self.hungry<100 and self.time == 0:
@@ -21,8 +21,12 @@ class Meow:
             food.eaten()
 
     def lvl_up(self):
-        if self.exp == 30 * self.level:
+        if self.exp >= (20 * self.level):
             self.level +=1
+            self.damage_up()
+
+    def damage_up(self):
+        self.damage += self.level * 5
 
 class Enemy(arcade.Sprite):
     def __init__(self,filename, SCALE):
@@ -135,40 +139,63 @@ class Choose:
         self.world = world
         self.background = img
         self.select = -1
+        self.choosen_sprite = arcade.Sprite("images/choosen.png")
+        self.choosen_sprite.set_position(100,100)
     def update(self):
         pass
         
     def on_mouse_press(self, x, y, button, modifiers):
-        if button == arcade.MOUSE_BUTTON_LEFT and (x > 625 and x < 675 ) and (y > 5 and y < 55):
+        # first 
+        if button == arcade.MOUSE_BUTTON_LEFT and (x > 50 and x < 250 ) and (y > 450 and y < 650):
+            self.choosen_sprite.set_position(150,550)
+            self.select = 0
+        # second
+        elif button == arcade.MOUSE_BUTTON_LEFT and (x > 250 and x < 450 ) and (y > 450 and y < 650) and (len(self.world.meow_list) == 2):
+            self.choosen_sprite.set_position(350,550)
+            self.select = 1
+        # third
+        elif button == arcade.MOUSE_BUTTON_LEFT and (x > 450 and x < 650 ) and (y > 450 and y < 650) and (len(self.world.meow_list) == 3):
+            self.choosen_sprite.set_position(550,550)
+            self.select = 2
+        # forth
+        elif button == arcade.MOUSE_BUTTON_LEFT and (x > 50 and x < 250 ) and (y > 250 and y < 450) and (len(self.world.meow_list) == 4):
+            self.choosen_sprite.set_position(150,350)
+            self.select = 3
+        if button == arcade.MOUSE_BUTTON_LEFT and (x > 625 and x < 675 ) and (y > 5 and y < 55) and self.select != -1:
             self.world.choose_press = False
             print("press")
             if self.world.choose == "TRAIN":
                 self.world.training_status = True
             if self.world.choose == "FIGHT":
                 self.world.fight_status = True
-        # if button == arcade.MOUSE_BUTTON_LEFT and (x > 625 and x < 675 ) and (y > 5 and y < 55):
-            
+            self.select = -1
+            self.choosen_sprite.set_position(100,100)
 
 class Training:
-    def __init__(self, world):
+    def __init__(self, world, choose):
         self.world = world
+        self.choose = choose
         self.time = 0
 
     def update(self, delta):
         self.world.choose_status = False
+        if (self.time == 0):
+            self.exp_increase(self.world.meow_list[self.choose.select])
         self.time+=delta
         if self.time < 20:
             return
         self.world.training_status = False
+        self.time = 0
 
     def exp_increase(self,meow):
-        self.world.exp += 20
-        print("exp",self.meow.exp)
+        meow.exp += random.randint(10,20)
+        print("exp",meow.exp)
 
 
 class Fight:
-    def __init__(self, world, img):
+    def __init__(self, world, choose, img):
         self.world = world
+        self.choose = choose
         self.background = img
         self.time = 0    
         self.count = 0    
