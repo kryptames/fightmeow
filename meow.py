@@ -73,16 +73,35 @@ class MeowWindow(arcade.Window):
             arcade.draw_text('Left: {0}'.format(str(self.world.food.status)),
                                         self.food_sprite.center_x - 50, self.food_sprite.center_y + 50,
                                         arcade.color.BRICK_RED, 20)
+
+            # draw botton
+            arcade.draw_texture_rectangle(80, 30, 150, 53,
+                                                    arcade.load_texture("images/train button.png"))
+            arcade.draw_texture_rectangle(620, 30, 150, 53,
+                                                    arcade.load_texture("images/fight button.png"))
+
+            ######################################## for check time ########################################
             if self.world.training_status:
                 arcade.draw_text('Time: {0}'.format(str(self.training.time)),
                                         SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2,
                                         arcade.color.BRICK_RED, 20)
+            ################################################################################################
+
         elif self.world.choose_status:
             if self.world.choose_press:
                 arcade.draw_texture_rectangle(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2,
                                         SCREEN_WIDTH, SCREEN_HEIGHT, arcade.load_texture(self.choose.background))
+                arcade.draw_texture_rectangle(580, 50, 150, 53,
+                                                    arcade.load_texture("images/choose botton.png"))
                 if self.choose.choosen_sprite.center_x != 100 and self.choose.choosen_sprite.center_y != 100:
                     self.choose.choosen_sprite.draw()
+                    arcade.draw_texture_rectangle(580, 50, 150, 53,
+                                                    arcade.load_texture("images/choosen button.png"))
+
+                for i in range(len(self.world.pic)):
+                    arcade.draw_texture_rectangle(self.world.choose_position[i][0], self.world.choose_position[i][1], 100, 100,
+                                                    arcade.load_texture("images/choose_meow{0}.png".format(self.world.pic[i])))
+
                 
             elif self.world.fight_status:
                 arcade.set_background_color(arcade.color.BLACK)
