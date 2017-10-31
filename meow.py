@@ -64,24 +64,6 @@ class MeowWindow(arcade.Window):
             arcade.draw_text(str(self.world.coin.status),
                                     self.width - 40, self.height - 30,
                                     arcade.color.CITRINE, 20)    
-            #############################################################################################
-            arcade.draw_text(str(self.world.meow_list[0].hungry),
-                                    self.width - 50, self.height - 50,
-                                    arcade.color.YELLOW, 20)
-            arcade.draw_text(str(self.world.meow_list[0].time),
-                                    self.width - 110, self.height - 110,
-                                    arcade.color.YELLOW, 20)   
-            arcade.draw_text(str(self.world.food.status),
-                                    self.width - 150, self.height - 150,
-                                    arcade.color.YELLOW, 20)  
-            if len(self.world.meow_list) > 1:
-                arcade.draw_text(str(self.world.meow_list[1].hungry),
-                                        self.width - 50, self.height - 70,
-                                        arcade.color.GREEN, 20)
-                arcade.draw_text(str(self.world.meow_list[1].time),
-                                        self.width - 110, self.height - 130,
-                                        arcade.color.GREEN, 20)   
-            #############################################################################################
             for i in range(0,len(self.world.meow_list)):
                 arcade.draw_text('Lv:{0}  Dmg:{1}'.format(str(self.world.meow_list[i].level),str(self.world.meow_list[i].damage)),
                                         self.world.meow_sprite_list[i].center_x - 60, self.world.meow_sprite_list[i].center_y + 50,
