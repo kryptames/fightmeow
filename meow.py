@@ -26,7 +26,7 @@ class MeowWindow(arcade.Window):
         self.world = World(SCREEN_WIDTH, SCREEN_HEIGHT,"images/background-living.jpg")
         self.coin_sprite = ModelSprite('images/coin.png', model=self.world.coin)
         self.block_food_sprite = ModelSprite('images/Block.png', model=self.world.block_food)
-        self.food_sprite = ModelSprite('images/food.jpg', model=self.world.food)
+        self.food_sprite = ModelSprite('images/food.png', model=self.world.food)
 
         self.choose = Choose(self.world,"images/choose.png")
         self.fight = Fight(self.world,self.choose,"images/background-working.jpg")
