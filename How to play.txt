@@ -1,5 +1,7 @@
 press space to buy more cat
 you can train to increase exp
+every 20 exp lvlup
+lvlup increase more damage
 if you don't have enough money, let's fight
 press green botton to buy more food
 it have cool down before trainning again
