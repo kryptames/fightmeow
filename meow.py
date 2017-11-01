@@ -77,15 +77,11 @@ class MeowWindow(arcade.Window):
             # draw botton
             arcade.draw_texture_rectangle(80, 30, 150, 53,
                                                     arcade.load_texture("images/train button.png"))
+            if self.world.training_status:
+                arcade.draw_texture_rectangle(80, 30, 150, 53,
+                                                    arcade.load_texture("images/train button-off.png"))
             arcade.draw_texture_rectangle(620, 30, 150, 53,
                                                     arcade.load_texture("images/fight button.png"))
-
-            ######################################## for check time ########################################
-            if self.world.training_status:
-                arcade.draw_text('Time: {0}'.format(str(self.training.time)),
-                                        SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2,
-                                        arcade.color.BRICK_RED, 20)
-            ################################################################################################
 
         elif self.world.choose_status:
             if self.world.choose_press:
@@ -108,8 +104,6 @@ class MeowWindow(arcade.Window):
                 if self.fight.time < 4:
                     arcade.draw_texture_rectangle(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 200, 261, 75.5,
                                                     arcade.load_texture("images/enemy_banner.png"))
-                    # arcade.draw_texture_rectangle(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2, 250, 250,
-                                                    # arcade.load_texture("images/enemy_block.png"))
                     arcade.draw_texture_rectangle(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2, 112.5, 126,
                                                     arcade.load_texture("images/enemy.png"))
                 elif self.fight.time > 4 and self.fight.time < 12:
@@ -122,17 +116,12 @@ class MeowWindow(arcade.Window):
                     else:
                         arcade.draw_texture_rectangle(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2, 700, 700,
                                                     arcade.load_texture("images/lose.png"))
-                ######################################## for check time ########################################
-                arcade.draw_text('Time: {0}, count {1}'.format(str(self.fight.time),str(self.fight.count)),
-                                        2, 2,
-                                        arcade.color.BRICK_RED, 20)
-                ################################################################################################
 
     def on_key_press(self, key, key_modifiers):
         self.world.on_key_press(key, key_modifiers)
 
     def on_mouse_press(self, x, y, button, modifiers):
-        if not self.world.choose_status:
+        if not self.world.choose_status and not self.world.fight_status:
             self.world.on_mouse_press(x, y, button, modifiers)
         # center block is 650,30
         else:
