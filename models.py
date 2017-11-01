@@ -105,6 +105,7 @@ class World:
                 self.position.append((self.meow_sprite_list[i].center_x,self.meow_sprite_list[i].center_y))
                 del self.meow_list[i]
                 self.meow_sprite_list[i].kill()
+                del self.pic[i]
                 break
 
     def on_key_press(self, key, key_modifiers):
@@ -164,6 +165,7 @@ class Choose:
         elif button == arcade.MOUSE_BUTTON_LEFT and (x > 50 and x < 250 ) and (y > 250 and y < 450) and (len(self.world.meow_list) >= 4):
             self.choosen_sprite.set_position(150,350)
             self.select = 3
+        # select character
         if button == arcade.MOUSE_BUTTON_LEFT and (x > 505 and x < 655 ) and (y > 25 and y < 75) and self.select != -1:
             self.world.choose_press = False
             print("press")
@@ -173,7 +175,6 @@ class Choose:
                 self.world.fight_status = True
             self.select = -1
             self.choosen_sprite.set_position(100,100)
-        print(self.choosen_sprite.center_x,self.choosen_sprite.center_y,len(self.world.meow_list))
 
 class Training:
     def __init__(self, world, choose):

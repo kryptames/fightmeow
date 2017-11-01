@@ -105,10 +105,14 @@ class MeowWindow(arcade.Window):
                 
             elif self.world.fight_status:
                 arcade.set_background_color(arcade.color.BLACK)
+                arcade.draw_texture_rectangle(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2, 260, 30,
+                                                    arcade.load_texture("images/loading{0}.png".format(int(self.fight.time)%4)))
+                print(int(self.fight.time) % 4)
+                ######################################## for check time ########################################
                 arcade.draw_text('Time: {0}, count {1}'.format(str(self.fight.time),str(self.fight.count)),
                                         2, 2,
                                         arcade.color.BRICK_RED, 20)
-            
+                ################################################################################################
 
     def on_key_press(self, key, key_modifiers):
         self.world.on_key_press(key, key_modifiers)
