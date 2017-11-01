@@ -118,10 +118,12 @@ class MeowWindow(arcade.Window):
                                                     arcade.load_texture("images/lose.png"))
 
     def on_key_press(self, key, key_modifiers):
-        self.world.on_key_press(key, key_modifiers)
+        if not self.world.choose_status and not self.world.choose_status:
+            self.world.on_key_press(key, key_modifiers)
+            print(not self.world.choose_status,not self.world.fight_status)
 
     def on_mouse_press(self, x, y, button, modifiers):
-        if not self.world.choose_status and not self.world.fight_status:
+        if not self.world.choose_status:
             self.world.on_mouse_press(x, y, button, modifiers)
         # center block is 650,30
         else:

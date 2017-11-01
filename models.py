@@ -187,7 +187,7 @@ class Training:
         if self.time == 0:
             self.exp_increase(self.world.meow_list[self.choose.select])
         self.time+=delta
-        # can't train again until 20 sec after train
+        # can't train again until 10 sec after train
         if self.time < 10:
             return
         self.world.training_status = False
