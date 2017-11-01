@@ -1,0 +1,6 @@
+press space to buy more cat
+you can train to increase exp
+if you don't have enough money, let's fight
+press green botton to buy more food
+it have cool down before trainning again
+max slot is 4
