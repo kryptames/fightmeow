@@ -183,9 +183,9 @@ class Training:
         self.time = 0
 
     def update(self, delta):
-        self.world.choose_status = False
         if self.time == 0:
             self.exp_increase(self.world.meow_list[self.choose.select])
+            self.world.choose_status = False
         self.time+=delta
         # can't train again until 10 sec after train
         if self.time < 10:

@@ -45,6 +45,7 @@ class MeowWindow(arcade.Window):
                     self.world.choose_status = False
         if self.world.training_status:
             self.training.update(delta)
+            
 
     def on_draw(self):
         arcade.start_render()
