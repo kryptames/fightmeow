@@ -173,7 +173,7 @@ class Choose:
                 self.world.training_status = True
             if self.world.choose == "FIGHT":
                 self.world.fight_status = True
-            self.select = -1
+            #self.select = -1
             self.chose_sprite.set_position(100,100)
 
 class Training:
@@ -190,6 +190,7 @@ class Training:
         # can't train again until 10 sec after train
         if self.time < 10:
             return
+        self.choose.select = -1
         self.world.training_status = False
         self.time = 0
 

@@ -32,7 +32,6 @@ class MeowWindow(arcade.Window):
         self.fight = Fight(self.world,self.choose,"images/background-working.jpg")
         self.training = Training(self.world, self.choose)
         
-
     def update(self, delta):
         if self.world.choose_status == False:
             self.world.update(delta)
@@ -44,8 +43,7 @@ class MeowWindow(arcade.Window):
                     self.world.fight_status = False
                     self.world.choose_status = False
         if self.world.training_status:
-            self.training.update(delta)
-            
+            self.training.update(delta)  
 
     def on_draw(self):
         arcade.start_render()
